@@ -14,7 +14,8 @@ class Command(BaseCommand):
         # Named (optional) arguments
         parser.add_argument(
             '--count',
-            default=200,
+            default=10,
+            type=int,
             help='How many tweets to import, max 200.',
         )
 
@@ -28,5 +29,13 @@ class Command(BaseCommand):
         auth.set_access_token(access_token, access_token_secret)
         api = tweepy.API(auth)
 
-            # print(args)
-            # print(options)
+        user = User.objects.get(username=options['username'])
+        count = 0
+        for status in tweepy.Cursor(api.user_timeline, id=options['username']).items(options['count']):
+            tweet, created = Tweet.objects.get_or_create(user=user, content=status.text, created=status.created_at)
+            if created:
+                tweet.created = status.created_at
+                tweet.save()
+                count += 1
+
+        self.stdout.write(self.style.SUCCESS('Finished. {} tweets have been imported.'.format(count)))

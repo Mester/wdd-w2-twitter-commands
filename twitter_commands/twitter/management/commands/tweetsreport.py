@@ -6,8 +6,8 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         # Positional arguments
-        parser.add_argument('username')
-
+        # parser.add_argument('username')
+        pass
         # Named (optional) arguments
         # parser.add_argument(
         #     '--delete',

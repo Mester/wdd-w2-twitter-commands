@@ -26,4 +26,4 @@ Example of usage:
 $ django-admin tweetsreport --from_date 2015-12-30 --to_date 2016-03-30
 ```
 
-The `tweetsreport` command must be automatized to be executed every day at 21:00. For that you must write a CRON job rule that fulfills this requirement.
+The `tweetsreport` command must be automatized to be executed only during weekends (Saturday and Sunday) at 21:00. For that you must write a CRON job rule that fulfills this requirement.
